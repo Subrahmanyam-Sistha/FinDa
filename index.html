@@ -1,52 +1,163 @@
 <!DOCTYPE html>
-<html lang="en"><head>
+<html lang="en">
+
+<head>
   <meta charset="utf-8">
-  <title>Upgrademodulerules</title>
+  <title>FinDa</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<style>.mat-typography{font:400 14px/20px Roboto,sans-serif;letter-spacing:.0178571429em}html,body{height:100%}body{margin:0;font-family:Roboto,Helvetica Neue,sans-serif}.body-container{margin:10px 30px}</style><link rel="stylesheet" href="styles.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles.css"></noscript></head>
+  <style>
+    .mat-typography {
+      font: 400 14px/20px Roboto, sans-serif;
+      letter-spacing: .0178571429em
+    }
+
+    html,
+    body {
+      height: 100%
+    }
+
+    body {
+      margin: 0;
+      font-family: Roboto, Helvetica Neue, sans-serif
+    }
+
+    .body-container {
+      margin: 10px 30px
+    }
+
+    .modes-dropdown {
+      display: inline-block;
+    }
+
+    .modes {
+      margin-bottom: 5px;
+    }
+  </style>
+  <link rel="stylesheet" href="styles.css" media="print" onload="this.media='all'"><noscript>
+    <link rel="stylesheet" href="styles.css">
+  </noscript>
+</head>
+
 <body class="mat-typography body-container">
-<ul class="nav nav-tabs">
-  <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
-  <li><a data-toggle="tab" href="#menu1">Dash Board</a></li>
-  <li><a data-toggle="tab" href="#menu2">Settings</a></li>
-</ul>
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
+    <li><a data-toggle="tab" href="#menu1">Dash Board</a></li>
+    <li><a data-toggle="tab" href="#menu2">Settings</a></li>
+  </ul>
 
 
-<div class="tab-content">
-<div id="home" class="tab-pane fade in active">
-<form>
-  <div class="form-group">
-    <label for="email">Time</label>
-    <input type="email" class="form-control" id="email">
+  <div class="tab-content">
+    <div id="home" class="tab-pane fade in active">
+      <form>
+        <div class="form-group">
+          <label for="email">Time</label>
+          <input type="email" class="form-control" id="email">
+        </div>
+        <div class="form-group">
+          <label for="email">Amount</label>
+          <input type="email" class="form-control" id="email">
+        </div>
+
+        <div class="form-group">
+          <label for="pwd">Mode</label>
+          <div class="modes">
+            <label class="radio-inline"><input type="radio" name="optradio" checked>UPI</label>
+            <label class="radio-inline"><input type="radio" name="optradio">Credit Card</label>
+            <label class="radio-inline"><input type="radio" name="optradio">Debit Card</label>
+          </div>
+          <div class="modes">
+            <label class="radio-inline"><input type="radio" name="optradio" checked>Cash</label>
+            <div class="dropdown modes-dropdown ">
+              <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown">More
+                <span class="caret"></span></button>
+              <ul class="dropdown-menu">
+                <li><a>HTML</a></li>
+                <li><a>CSS</a></li>
+                <li><a>JavaScript</a></li>
+              </ul>
+            </div>
+            <div class="modal fade" id="modeModal" role="dialog">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Select Mode</h4>
+                  </div>
+                  <div class="modal-body">
+                    <div>
+                      <button type="button" class="btn btn-default btn-sm payment-mode" data-dismiss="modal"
+                        data-value="HDFC Credit Card">HDFC Credit
+                        Card</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="pwd">Reason</label>
+          <div>
+            <label class="radio-inline"><input type="radio" name="optradio" checked>Food</label>
+            <label class="radio-inline"><input type="radio" name="optradio">Shopping</label>
+            <label class="radio-inline"><input type="radio" name="optradio">Petrol</label>
+          </div>
+          <div>
+            <label class="radio-inline"><input type="radio" name="optradio" checked>Waste</label>
+            <button type="button" class="btn btn-default btn-xs" data-toggle="modal"
+              data-target="#modeModal">More</button>
+            <div class="modal fade" id="modeModal" role="dialog">
+              <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Select Mode</h4>
+                  </div>
+                  <div class="modal-body">
+                    <div>
+                      <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"
+                        data-value="HDFC Credit Card">HDFC Credit
+                        Card</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>&nbsp;</div>
+        <div class='text-center'>
+          <button type="button" class="btn btn-primary">Save</button>
+        </div>
+        <div>&nbsp;</div>
+      </form>
+      <div class="alert alert-success">
+        <strong>Success!</strong> Indicates a successful or positive action.
+      </div>
+    </div>
   </div>
-  <div class="form-group">
-    <label for="email">Amount</label>
-    <input type="email" class="form-control" id="email">
-  </div>
 
-  <div class="form-group">
-    <label for="pwd">Amount</label>
-	<div>
-	<label class="radio-inline"><input type="radio" name="optradio" checked>UPI</label>
-	<label class="radio-inline"><input type="radio" name="optradio">Credit Card</label>
-	<label class="radio-inline"><input type="radio" name="optradio">Debit Card</label>
-   </div>	
-   <div>
-	<label class="radio-inline"><input type="radio" name="optradio" checked>Cash</label>
-  </div>	
-  </div>
-  <div class="form-group">
-  <label for="comment">Comment:</label>
-  <textarea class="form-control" rows="5" id="comment"></textarea>
-</div>
-</form>
-</div>
-</div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-</body></html>
+  <script>
+
+    $(document).ready(function () {
+      $('.payment-mode').on('click', function () {
+        alert($(this).data('value'))
+      })
+
+      $('.dropdown-menu').on('click', 'a', function () {
+        var text = $(this).html();
+        var htmlText = text + ' <span class="caret"></span>';
+        $(this).closest('.dropdown').find('.dropdown-toggle').html(htmlText);
+      });
+    })
+  </script>
+</body>
+
+</html>
