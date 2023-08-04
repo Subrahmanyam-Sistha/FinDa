@@ -1,26 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-  <meta charset="utf-8">
-  <link rel="manifest" href="manifest.json" />
-<!-- ios support -->
-<link rel="apple-touch-icon" href="assets/icons/icon-72x72.png" />
-<link rel="apple-touch-icon" href="assets/icons/icon-96x96.png" />
-<link rel="apple-touch-icon" href="assets/icons/icon-128x128.png" />
-<link rel="apple-touch-icon" href="assets/icons/icon-144x144.png" />
-<link rel="apple-touch-icon" href="assets/icons/icon-152x152.png" />
-<link rel="apple-touch-icon" href="assets/icons/icon-192x192.png" />
-<link rel="apple-touch-icon" href="assets/icons/icon-384x384.png" />
-<link rel="apple-touch-icon" href="assets/icons/icon-512x512.png" />
-<meta name="apple-mobile-web-app-status-bar" content="#db4938" />
-<meta name="theme-color" content="#db4938" />
+  <title>Finda</title>
+  <link rel="manifest" href="manifest.webmanifest" crossorigin="use-credentials">
+  <link rel="apple-touch-icon" href="/path/to/apple-touch-icon.png">
+
+  <!-- ios support -->
+  <link rel="apple-touch-icon" href="assets/icons/icon-72x72.png" />
+  <link rel="apple-touch-icon" href="assets/icons/icon-96x96.png" />
+  <link rel="apple-touch-icon" href="assets/icons/icon-128x128.png" />
+  <link rel="apple-touch-icon" href="assets/icons/icon-144x144.png" />
+  <link rel="apple-touch-icon" href="assets/icons/icon-152x152.png" />
+  <link rel="apple-touch-icon" href="assets/icons/icon-192x192.png" />
+  <link rel="apple-touch-icon" href="assets/icons/icon-512x512.png" />
+  <meta name="apple-mobile-web-app-status-bar" content="#db4938" />
+  <meta name="theme-color" content="#db4938" />
   <title>FinDa</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <!-- Meta tags for mobile optimization -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <!-- Bootstrap 3 CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
   <style>
     .mat-typography {
       font: 400 14px/20px Roboto, sans-serif;
@@ -38,138 +42,307 @@
     }
 
     .body-container {
-      margin: 10px 30px
+      margin: 10px 10px
     }
 
     .modes-dropdown {
       display: inline-block;
     }
 
-    .modes {
+    .items {
       margin-bottom: 5px;
     }
+
+    .items {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 1fr;
+    }
+
+    .items label {
+      flex-grow: 1
+    }
+
+    .inline-block {
+      display: inline-block;
+    }
+
+    .items {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 1fr;
+    }
+
+    .mandatory {
+      color: red;
+      /* You can change the color to suit your design */
+      font-weight: bold;
+      margin-right: 5px;
+      /* Adjust the spacing as needed */
+    }
+
+    .chart-container {
+      position: relative;
+      margin: auto;
+      max-width: 100%;
+      height: 300px;
+      /* Set the initial height of the chart */
+    }
+
+    canvas {
+      max-width: 100%;
+      height: 100%;
+      /* Set the initial height of the canvas */
+    }
+
+    .flex {
+      display: flex;
+    }
   </style>
-  <link rel="stylesheet" href="styles.css" media="print" onload="this.media='all'"><noscript>
-    <link rel="stylesheet" href="styles.css">
-  </noscript>
+
 </head>
 
 <body class="mat-typography body-container">
-  <ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
-    <li><a data-toggle="tab" href="#menu1">Dash Board</a></li>
-    <li><a data-toggle="tab" href="#menu2">Settings</a></li>
-  </ul>
 
 
-  <div class="tab-content">
-    <div id="home" class="tab-pane fade in active">
-      <form>
-        <div class="form-group">
-          <label for="email">Payment Time</label>
-          <input type="email" class="form-control" id="email">
-        </div>
-        <div class="form-group">
-          <label for="email">Amount</label>
-          <input type="email" class="form-control" id="email">
-        </div>
 
-        <div class="form-group">
-          <label for="pwd">Mode</label>
-          <div class="modes">
-            <label class="radio-inline"><input type="radio" name="optradio" checked>UPI</label>
-            <label class="radio-inline"><input type="radio" name="optradio">Credit Card</label>
-            <label class="radio-inline"><input type="radio" name="optradio">Debit Card</label>
+  <div class="container">
+
+    <ul class="nav nav-tabs">
+      <li class="active"><a href="#home" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+      <li><a href="#dashboard" data-toggle="tab"><i class="fa fa-dashboard"></i></a></li>
+      <li><a href="#settings" data-toggle="tab"><i class="fa fa-cogs"></i></a></li>
+    </ul>
+
+    <div class="tab-content">
+      <div class="tab-pane active" id="home">
+        <form id="dataForm">
+          <div class="form-group">
+            <label for="time"><span class="mandatory">*</span>Time:</label>
+            <div class="row flex">
+              <div class="col-md-6">
+                <input type="date" class="form-control" id="date" name="date">
+              </div>
+              <div class="col-md-6">
+
+                <input type="time" class="form-control" id="time" name="time">
+              </div>
+            </div>
           </div>
-          <div class="modes">
-            <label class="radio-inline"><input type="radio" name="optradio" checked>Cash</label>
-            <div class="dropdown modes-dropdown ">
-              <button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown">More
-                <span class="caret"></span></button>
-              <ul class="dropdown-menu">
-                <li><a>HTML</a></li>
-                <li><a>CSS</a></li>
-                <li><a>JavaScript</a></li>
+          <div class="form-group">
+            <label for="amount"><span class="mandatory">*</span>Amount:</label>
+            <input type="number" class="form-control" id="amount" name="amount">
+          </div>
+
+          <label><span class="mandatory">*</span>Mode:</label>
+          <div id="paymentModeContainer"></div>
+          <label><span class="mandatory">*</span>SpentFor:</label>
+          <div id="spentForContainer"></div>
+          <!--<div class="form-group">
+            <div class="items">
+              <label class="radio-inline">
+                <input type="radio" name="mode" value="UPI" data-input="radio"> UPI
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="mode" value="Cash" data-input="radio"> Cash
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="mode" value="CreditCard" data-input="radio"> CreditCard
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="items">
+              <label class="radio-inline">
+                <input type="radio" name="mode" value="DebitCard" data-input="radio"> Debit Card
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="dropdown">
+              <button class="btn btn-default dropdown-toggle" type="button" id="modeDropdownButton"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                More
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="modeDropdownButton" id="moreModesDropdown">
+                <a></a>
               </ul>
             </div>
-            <div class="modal fade" id="modeModal" role="dialog">
-              <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Select Mode</h4>
-                  </div>
-                  <div class="modal-body">
-                    <div>
-                      <button type="button" class="btn btn-default btn-sm payment-mode" data-dismiss="modal"
-                        data-value="HDFC Credit Card">HDFC Credit
-                        Card</button>
-                    </div>
-                  </div>
-                </div>
+          </div>
+          <div class="form-group">
+            <label><span class="mandatory">*</span>Spent For:</label><br>
+            <div class="items">
+              <label class="radio-inline">
+                <input type="radio" name="spentFor" value="Food" data-input="radio"> Food
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="spentFor" value="Cab" data-input="radio"> Cab
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="spentFor" value="Movies" data-input="radio"> Movies
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="items">
+              <label class="radio-inline">
+                <input type="radio" name="spentFor" value="Shopping" data-input="radio"> Shopping
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="spentFor" value="Groceries" data-input="radio"> Groceries
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="spentFor" value="Waste" data-input="radio"> Waste
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="dropdown">
+              <button class="btn btn-default dropdown-toggle" type="button" id="spentForDropdownButton"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                More
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="spentForDropdownButton" id="moreSpentForDropdown">
+                <a></a>
+                
+              </ul>
+            </div>
+          </div>-->
+          <div class="form-group">
+            <label for="comment">Comment:</label>
+            <textarea class="form-control" id="comment" name='comment' rows="5"
+              placeholder="Enter your comment here..."></textarea>
+          </div>
+          <div class='text-center'>
+            <button type="button" class="btn btn-primary" id="saveBtn">Save</button>
+          </div>
+          <br />
+          <div class="alert alert-danger" id="danger" style="display:none">
+            <strong>Please fill All Required Fields</strong>
+          </div>
+
+          <div class="alert alert-success" id="success" style="display:none">
+            <strong>Information Captured Successfully</strong>
+          </div>
+        </form>
+
+      </div>
+      <div class="tab-pane" id="dashboard">
+        <div class="container mt-5">
+          <div class="row">
+            <div class="col-md-6">
+              <label for="fromDate">From Date:</label>
+              <input type="date" id="fromDate" class="form-control">
+            </div>
+            <div class="col-md-6">
+              <label for="toDate">To Date:</label>
+              <input type="date" id="toDate" class="form-control">
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col-md-12">
+              <h3 class="text-center">Payment Mode</h3>
+              <div class="chart-container">
+                <canvas id="paymentModeChart"></canvas>
               </div>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col-md-12">
+              <h3 class="text-center">Spent For</h3>
+              <div class="chart-container">
+                <canvas id="spentForChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="tab-pane" id="settings">
+
+        <!-- Settings content goes here -->
+        <div class="form-inline">
+          <div class="form-group inline-block">
+            <label for="modeInput">Add Payment Mode:</label>
+            <input type="text" class="form-control" id="modeInput" placeholder="Payment Mode">
+          </div>
+          <button type="button" class="btn btn-primary" id="addModeBtn"><i class="fa fa-plus"></i></button>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Payment Mode</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="modeTableBody">
+            <!-- Modes will be added dynamically here -->
+          </tbody>
+        </table>
+
+        <div class="form-inline">
+          <div class="form-group inline-block">
+            <label for="spentInput">Add Spent For:</label>
+            <input type="text" class="form-control" id="spentInput" placeholder="Spent For">
+          </div>
+          <button type="button" class="btn btn-primary" id="addSpentForBtn"><i class="fa fa-plus"></i></button>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Spent For</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="spentTableBody">
+            <!-- Modes will be added dynamically here -->
+          </tbody>
+        </table>
+        <div class="form-group">
+          <h4>Chart Type:</h4>
+          <div class="items">
+            <div class="radio-inline">
+              <label>
+                <input type="radio" name="chartType" value="bar"> Bar
+              </label>
+            </div>
+            <div class="radio-inline">
+              <label>
+                <input type="radio" name="chartType" value="pie"> Pie
+              </label>
             </div>
           </div>
         </div>
         <div class="form-group">
-          <label for="pwd">Reason</label>
-          <div>
-            <label class="radio-inline"><input type="radio" name="optradio" checked>Food</label>
-            <label class="radio-inline"><input type="radio" name="optradio">Shopping</label>
-            <label class="radio-inline"><input type="radio" name="optradio">Petrol</label>
-          </div>
-          <div>
-            <label class="radio-inline"><input type="radio" name="optradio" checked>Waste</label>
-            <button type="button" class="btn btn-default btn-xs" data-toggle="modal"
-              data-target="#modeModal">More</button>
-            <div class="modal fade" id="modeModal" role="dialog">
-              <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Select Mode</h4>
-                  </div>
-                  <div class="modal-body">
-                    <div>
-                      <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"
-                        data-value="HDFC Credit Card">HDFC Credit
-                        Card</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <button type="button" class="btn btn-primary" id="clearCache">Clear Cache</button>
         </div>
-        <div>&nbsp;</div>
-        <div class='text-center'>
-          <button type="button" class="btn btn-primary">Save</button>
-        </div>
-        <div>&nbsp;</div>
-      </form>
-      <div class="alert alert-success">
-        <strong>Success!</strong> Indicates a successful or positive action.
       </div>
+
+
     </div>
+
+
+
   </div>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  </div>
 
-  <script>
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- Bootstrap 3 JS -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!-- Custom JavaScript -->
+  <script src="script.js"></script>
+  <script src="settings.js"></script>
+  <script src="spentfor.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 
-    $(document).ready(function () {
-      $('.payment-mode').on('click', function () {
-        alert($(this).data('value'))
-      })
-
-      $('.dropdown-menu').on('click', 'a', function () {
-        var text = $(this).html();
-        var htmlText = text + ' <span class="caret"></span>';
-        $(this).closest('.dropdown').find('.dropdown-toggle').html(htmlText);
-      });
-    })
-  </script>
+  <script src='dashboard.js'></script>
 </body>
 
 </html>
